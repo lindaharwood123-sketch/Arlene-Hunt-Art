@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bold Abstract — Arlene Hunt Art</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #f7f3ee;
+            --cream-dark: #ede7de;
+            --white: #ffffff;
+            --ink: #1a1a2e;
+            --ink-soft: #2d2d4a;
+            --blue: #2a4a7f;
+            --blue-light: #3d6eb5;
+            --blue-pale: #e8eef8;
+            --muted: #7a7a90;
+            --border: #ddd8d0;
+            --gold: #b8892a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Jost', sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            min-height: 100vh;
+        }
+
+        nav {
+            background: rgba(247,243,238,0.97);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+            padding: 18px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1em;
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            color: var(--ink);
+            text-decoration: none;
+        }
+        .nav-logo span { font-style: italic; color: var(--blue); }
+
+        .nav-back {
+            font-size: 0.68em;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+        .nav-back::before { content: '←'; }
+        .nav-back:hover { color: var(--blue); }
+
+        .collection-hero {
+            padding: 60px 48px 48px;
+            border-bottom: 1px solid var(--border);
+            background: var(--white);
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .hero-text .collection-num {
+            font-size: 0.65em;
+            font-weight: 400;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 14px;
+        }
+
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2em, 5vw, 4em);
+            font-weight: 400;
+            line-height: 1.0;
+            color: var(--ink);
+        }
+        .hero-text h1 em { font-style: italic; color: var(--blue); }
+
+        .hero-desc {
+            max-width: 360px;
+            font-size: 0.82em;
+            font-weight: 300;
+            color: var(--muted);
+            line-height: 1.8;
+            letter-spacing: 0.03em;
+        }
+
+        .paintings-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 65px 40px 100px;
+        }
+
+        .paintings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 44px 32px;
+        }
+
+        .painting-card {
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            animation: cardIn 0.7s ease forwards;
+        }
+        .painting-card:nth-child(1) { animation-delay: 0.05s; }
+        .painting-card:nth-child(2) { animation-delay: 0.15s; }
+        .painting-card:nth-child(3) { animation-delay: 0.25s; }
+        .painting-card:nth-child(4) { animation-delay: 0.35s; }
+        .painting-card:nth-child(5) { animation-delay: 0.45s; }
+        .painting-card:nth-child(6) { animation-delay: 0.55s; }
+
+        .painting-frame {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            background: var(--cream-dark);
+            box-shadow: 0 4px 20px rgba(26,26,46,0.08);
+        }
+        .painting-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .painting-card:hover .painting-frame img { transform: scale(1.04); }
+
+        .painting-info {
+            padding: 16px 0 0;
+            border-top: 2px solid var(--cream-dark);
+            margin-top: 16px;
+        }
+        .painting-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05em;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: 7px;
+            font-style: italic;
+        }
+        .painting-desc {
+            font-size: 0.76em;
+            font-weight: 300;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .coming-soon {
+            text-align: center;
+            padding: 90px 20px;
+        }
+        .cs-ornament {
+            font-family: 'Playfair Display', serif;
+            font-size: 4em;
+            font-style: italic;
+            color: var(--blue-pale);
+            line-height: 1;
+            margin-bottom: 22px;
+        }
+        .coming-soon h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7em;
+            font-weight: 400;
+            color: var(--ink-soft);
+            margin-bottom: 12px;
+        }
+        .coming-soon p {
+            font-size: 0.8em;
+            font-weight: 300;
+            color: var(--muted);
+            line-height: 1.8;
+            max-width: 340px;
+            margin: 0 auto;
+        }
+
+        footer {
+            background: var(--ink);
+            text-align: center;
+            padding: 44px 20px;
+            font-size: 0.72em;
+            font-weight: 300;
+            color: #8888a8;
+            letter-spacing: 0.08em;
+        }
+        footer a { color: #a8c4e8; text-decoration: none; }
+        footer a:hover { color: #ffffff; }
+        footer .footer-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            font-style: italic;
+            font-weight: 400;
+            color: #e8e4de;
+            margin-bottom: 12px;
+        }
+
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 700px) {
+            nav, .collection-hero { padding-left: 20px; padding-right: 20px; }
+            .collection-hero { flex-direction: column; align-items: flex-start; padding-top: 36px; }
+            .paintings-section { padding: 36px 16px 70px; }
+            .paintings-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+        }
+        @media (max-width: 440px) {
+            .paintings-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="nav-logo">Arlene Hunt <span>Art</span></a>
+    <a href="index.html" class="nav-back">All Collections</a>
+</nav>
+
+<header class="collection-hero">
+    <div class="hero-text">
+        <p class="collection-num">Collection V &nbsp;·&nbsp; Bold Abstract</p>
+        <h1>Bold<br><em>Abstract</em></h1>
+    </div>
+    <p class="hero-desc">Colour, rhythm and energy in pure form. These works make no apology for their intensity — bold stripes, sweeping arcs and vivid contrasts that demand to be felt rather than merely seen.</p>
+</header>
+
+<section class="paintings-section">
+    <div class="paintings-grid">
+
+        <!-- ADD PAINTINGS HERE — copy this block for each painting:
+
+        <div class="painting-card">
+            <div class="painting-frame">
+                <img src="YOUR_IMAGE.jpg" alt="Painting Title">
+            </div>
+            <div class="painting-info">
+                <h2 class="painting-title">Painting Title</h2>
+                <p class="painting-desc">A short description — medium, inspiration or mood.</p>
+            </div>
+        </div>
+
+        -->
+
+    </div>
+
+    <div class="coming-soon">
+        <div class="cs-ornament">&#10022;</div>
+        <h2>Works Coming Soon</h2>
+        <p>Paintings from this collection will appear here. Upload your images and add the painting cards when ready.</p>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-name">Arlene Hunt Art</div>
+    <p>&copy; 2025 Arlene Hunt. All rights reserved.</p>
+    <p style="margin-top: 8px;"><a href="mailto:arlenehunt123@gmail.com">Get in Touch</a></p>
+</footer>
+
+</body>
+</html>
